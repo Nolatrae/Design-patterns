@@ -1,4 +1,4 @@
-from src.services.settingsManager import SettingsManager
+from src.settingsManager import SettingsManager
 import os
 
 
