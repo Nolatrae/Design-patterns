@@ -1,6 +1,6 @@
 import pytest
 from src.models.settings import Settings
-from src.services.settingsManager import SettingsManager
+from src.settingsManager import SettingsManager
 
 
 def test_inn_valid():

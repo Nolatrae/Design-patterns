@@ -1,17 +1,31 @@
 import pytest
-from src.contracts.implements.nomenclature import Nomenclature
+from src.models.nomenclature import Nomenclature
 
-def test_other_uuid_for_instances():
-    n1 = Nomenclature()
-    n2 = Nomenclature()
-    assert n1.uuid != n2.uuid
+@pytest.fixture
+def nomenclature():
+    return Nomenclature()
 
-def test_base_equals_different_names():
-    n1 = Nomenclature("one")
-    n2 = Nomenclature("two")
-    assert n1 != n2
+@pytest.fixture
+def other_nomenclature():
+    return Nomenclature()
 
-def test_base_equals_same_names():
-    n1 = Nomenclature("one")
-    n2 = Nomenclature("one")
-    assert n1 == n2
+def test_initial_name(nomenclature):
+    """Проверяет, что начальное значение имени пустое."""
+    assert nomenclature.name == ""
+
+def test_set_name(nomenclature):
+    """Проверяет, что можно установить и получить имя."""
+    nomenclature.name = "Test Name"
+    assert nomenclature.name == "Test Name"
+
+def test_local_equals_true(nomenclature, other_nomenclature):
+    """Проверяет, что два объекта равны по имени."""
+    nomenclature.name = "Same Name"
+    other_nomenclature.name = "Same Name"
+    assert nomenclature.local_equals(other_nomenclature) is True
+
+def test_local_equals_false(nomenclature, other_nomenclature):
+    """Проверяет, что два объекта не равны по имени."""
+    nomenclature.name = "Name One"
+    other_nomenclature.name = "Name Two"
+    assert nomenclature.local_equals(other_nomenclature) is False
